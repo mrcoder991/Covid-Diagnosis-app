@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid Diagnosis</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+    <header class="topnav" id="myTopnav">
+        <a class="page-title" href="#">Diagnose yourself</a>
+        <ul class="links">
+            <li><a href="https://selfregistration.cowin.gov.in/">Vaccination</a></li>
+            <li><a href="https://news.google.com/covid19/map?hl=en-IN&mid=%2Fm%2F03rk0&gl=IN&ceid=IN%3Aen">Covid-19</a>
+            </li>
+            <li><a href="https://www.cowin.gov.in/home">Co-WIN</a></li>
+            <li class="mobile-link"><a
+                    href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/coronavirus-disease-covid-19">Get
+                    Assistance</a></li>
+        </ul>
+        <a class="button"
+            href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/coronavirus-disease-covid-19">Get
+            Assistance</a>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </header>
+    <div class="main-app">
+        <div class="doc-img">
+            <img src="{{url_for('static', filename='doc.png')}}" alt="doctor image">
+        </div>
+        <div class="assistant">
+            <div class="question">
+                <h3>{{question}}</h3>
+            </div>
+            <div class="answers">
+                <form action="/" method="POST">
+                    
+                    {% if option1 != None %}
+                        <div class="options option1">
+                            <input type="radio" id="answer1" name="answer" value="True">
+                            <label for="answer1">{{option1}}</label>
+                        </div>
+                    {% endif %}
+
+                    {% if option2 != None %}
+                        <div class="options option2">
+                            <input type="radio" id="answer2" name="answer" value="False">
+                            <label for="answer2">{{option2}}</label>
+                        </div>
+                    {% endif %}
+
+                    {% if option3 != None %}
+                        <div class="options option3">
+                            <input type="radio" id="answer3" name="answer" value="else">
+                            <label for="answer3">{{option3}}</label>
+                        </div>
+                    {% endif %}
+                    <div class="option-submit"></div>
+                        <input type="submit" value="Next">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const links = document.querySelector(".links");
+
+        hamburger.addEventListener("click", mobileMenu);
+
+        function mobileMenu() {
+            hamburger.classList.toggle("active");
+            links.classList.toggle("active");
+        }
+    </script>
+</body>
+
+</html>
