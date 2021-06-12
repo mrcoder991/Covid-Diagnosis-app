@@ -110,7 +110,6 @@ def main():
         question=returnValue[0]
         returnValue = fun(userAns, question)
         question = returnValue[0]
-        speak(question)
         print("question: ",returnValue[0], "\noption1:",returnValue[1], "\noption2:",returnValue[2], "\noption3:",returnValue[3],)
 
 main() 

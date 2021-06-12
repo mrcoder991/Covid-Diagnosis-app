@@ -3,8 +3,8 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-def fun(userAns, question):
-    if question == "this is first question":
+def fun(userAns="True", question="first question"):
+    if question == "first question":
     
         if userAns == "True":
             return "Have you taken the vaccination?", "Yes", "No", None
@@ -95,26 +95,28 @@ def fun(userAns, question):
 
 
 
-
-
-
-
+question = ""
+userAns = ""
+val = ()
+a=0
+while a < 1:
+    val = fun()
+    question = val[0]
+    a += 1
+    
+    
 
 @app.route("/", methods=["POST", "GET"])
 def hello():
-    a=0
-    while a < 1:
-        question = "this is first question"
-        userAns = 'True'
-        returnValue = fun(userAns, question)
-        a += 1
-        
+    global question
+    global userAns
+    global val    
     if request.method == "POST":
         userAns = request.form["answer"]
         print(userAns)
-        returnValue = fun(userAns, question)
-        question=returnValue[0]
-    return render_template("index.html",question=returnValue[0], option1= returnValue[1],option2=returnValue[2],option3=returnValue[3])
+        val = fun(userAns, question)
+        question=val[0]
+    return render_template("index.html",question=val[0], option1= val[1],option2=val[2],option3=val[3])
 
 if __name__ == "__main__":
     app.run(debug=True)
