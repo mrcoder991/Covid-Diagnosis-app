@@ -46,27 +46,30 @@
                     
                     {% if option1 != None %}
                         <div class="options option1">
-                            <input type="radio" id="answer1" name="answer" value="True">
+                            <input type="radio" id="answer1" name="answer" value="True" required="required">
                             <label for="answer1">{{option1}}</label>
                         </div>
                     {% endif %}
 
                     {% if option2 != None %}
                         <div class="options option2">
-                            <input type="radio" id="answer2" name="answer" value="False">
+                            <input type="radio" id="answer2" name="answer" value="False" required="required">
                             <label for="answer2">{{option2}}</label>
                         </div>
                     {% endif %}
 
                     {% if option3 != None %}
                         <div class="options option3">
-                            <input type="radio" id="answer3" name="answer" value="else">
+                            <input type="radio" id="answer3" name="answer" value="else" required="required" >
                             <label for="answer3">{{option3}}</label>
                         </div>
                     {% endif %}
-                    <div class="option-submit"></div>
+                    
+                    {% if option1 != None %}
+                        <div class="option-submit"></div>
                         <input type="submit" value="Next">
-                    </div>
+                        </div>
+                    {% endif %}
                 </form>
             </div>
         </div>

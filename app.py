@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
 
-
 app = Flask(__name__)
 
 def fun(userAns="True", question="first question"):
@@ -94,7 +93,6 @@ def fun(userAns="True", question="first question"):
             return "1. Wear a face mask  2. Do not share towel and utencils  3. Limit contact with others 4. Stay in separate room", None, None, None
 
 
-
 question = ""
 userAns = ""
 val = ()
@@ -104,8 +102,6 @@ while a < 1:
     question = val[0]
     a += 1
     
-    
-
 @app.route("/", methods=["POST", "GET"])
 def hello():
     global question
@@ -113,7 +109,6 @@ def hello():
     global val    
     if request.method == "POST":
         userAns = request.form["answer"]
-        print(userAns)
         val = fun(userAns, question)
         question=val[0]
     return render_template("index.html",question=val[0], option1= val[1],option2=val[2],option3=val[3])
