@@ -1,4 +1,7 @@
 from flask import Flask, request, render_template
+import pyttsx3
+import threading
+
 
 app = Flask(__name__)
 
@@ -62,7 +65,7 @@ def fun(userAns="True", question="first question"):
         elif userAns == "False":
             return "When did this interaction take place?", "Less than 5 days ago", "Greater than 5 days ago", "Greater than 14 days ago"
         elif userAns == "else":
-            return "Your infection risk is low. We recommend that you stay at home to avoid any chance of exposure to the Novel Coronavirus.Retake the Self-Assessment Test if you develop symptoms or come in contact with a COVID-19 confirmed patient.", "Ok", "Thank you" , "sure"
+            return "Your infection risk is low. We recommend that you stay at home to avoid any chance of exposure to the Novel Coronavirus.Retake the Self-Assessment Test if you develop symptoms or come in contact with a COVID-19 confirmed patient.", None,  None , None
     
     elif question == "When did this interaction take place?":
         if userAns == "True":
@@ -93,24 +96,38 @@ def fun(userAns="True", question="first question"):
             return "1. Wear a face mask  2. Do not share towel and utencils  3. Limit contact with others 4. Stay in separate room", None, None, None
 
 
+def talk(question):
+    talkbot = pyttsx3.init()
+    voices = talkbot.getProperty('voices')
+    talkbot.setProperty('voice', voices[1].id)
+    talkbot.setProperty("rate", 150)
+    talkbot.say(question)
+    talkbot.runAndWait()
+
+
 question = ""
 userAns = ""
 val = ()
-a=0
+
+a = 0
 while a < 1:
     val = fun()
     question = val[0]
     a += 1
-    
+
 @app.route("/", methods=["POST", "GET"])
 def hello():
     global question
     global userAns
-    global val    
-    if request.method == "POST":
+    global val
+      
+    if request.method == "POST":    
         userAns = request.form["answer"]
         val = fun(userAns, question)
-        question=val[0]
+        question = val[0]
+
+    t1 = threading.Thread(target=talk, args=(question,))
+    t1.start()
     return render_template("index.html",question=val[0], option1= val[1],option2=val[2],option3=val[3])
 
 if __name__ == "__main__":
