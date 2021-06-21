@@ -131,4 +131,4 @@ def hello():
     return render_template("index.html",question=val[0], option1= val[1],option2=val[2],option3=val[3])
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False, host="0.0.0.0")
