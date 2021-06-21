@@ -125,7 +125,7 @@ def hello():
         userAns = request.form["answer"]
         val = fun(userAns, question)
         question = val[0]
-
+   
     t1 = threading.Thread(target=talk, args=(question,))
     t1.start()
     return render_template("index.html",question=val[0], option1= val[1],option2=val[2],option3=val[3])
